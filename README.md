@@ -1,230 +1,546 @@
-# LaundryBD – Complete QA Test Execution Report (Customer Side / Frontend)
+# 🧺 LaundryBD – QA Audit & Defect Tracking Master Repository (41 Verified Cards)
 
-> **Repository:** [Laundry_Bd](https://github.com/sojibahmed007/Laundry_Bd)  
-> **Target Environment:** [test.laundrybd.com](https://test.laundrybd.com)  
-> **Report Document:** [Customer_Side_QA_Report.md](./Customer_Side_QA_Report.md)
+[![Issues Resolved](https://img.shields.io/badge/Status-Done%20%2F%20Verified%20(41%2F41)-success?style=for-the-badge&logo=trello)](https://trello.com/b/zpnZp2pZ/kernostudio)
+[![Total Cards](https://img.shields.io/badge/Total%20Cards-41-blue?style=for-the-badge)](https://trello.com/b/zpnZp2pZ/kernostudio)
+[![Bugs](https://img.shields.io/badge/Bugs-34%20(82.9%25)-red?style=for-the-badge)](https://trello.com/b/zpnZp2pZ/kernostudio)
+[![Improvements](https://img.shields.io/badge/Improvements-7%20(17.1%25)-purple?style=for-the-badge)](https://trello.com/b/zpnZp2pZ/kernostudio)
+[![Target Environment](https://img.shields.io/badge/Environment-Live%20Production%20%26%20Admin-green?style=for-the-badge)](https://admin.laundrybd.com)
 
-Please see the complete documented report in [Customer_Side_QA_Report.md](./Customer_Side_QA_Report.md) or below:
-
----
-
-* **Project:** LaundryBD (Online Doorstep Laundry & Dry Cleaning Service, Sylhet)
-* **Execution Date:** 31 October 2026
-* **Testing Methods:** Manual UI/UX Testing, REST API Testing, Security & Auth Auditing, Mobile Responsive View Testing
-* **Report Focus:** Customer Side / Frontend & BFF User Lifecycle
+> **Official Trello Board:** [Kerno Studio – LaundryBD Project](https://trello.com/b/zpnZp2pZ/kernostudio)  
+> **Environment Under Test:** [admin.laundrybd.com](https://admin.laundrybd.com) (Admin Portal) & [laundrybd.com](https://laundrybd.com) (Customer Web App)  
+> **Repository Maintainer:** [sojibahmed007](https://github.com/sojibahmed007)  
+> **Report Release Date:** 15 November 2026
 
 ---
 
-## Executive Test Summary
+## 📊 Executive QA Summary & KPI Dashboard
+
+This repository contains the comprehensive quality assurance logs, defect audits, reproduction steps, and validation data for the **41 cards logged in the "Done" list** of the LaundryBD project management board.
+
+### 📌 Core Key Performance Indicators (KPIs)
 
 ```
-┌──────────────────────────────────────────────┬─────────┬──────────────┐
-│ Metric Category                              │ Count   │ Percentage   │
-├──────────────────────────────────────────────┼─────────┼──────────────┤
-│ Total Documented Test Scenarios              │ 62      │ 100.0%       │
-│ Passed Tests                                 │ 55      │ 88.7%        │
-│ Failed Tests (Bugs & Improvement Gaps)       │ 7       │ 11.3%        │
-│   ├── Confirmed Functional / UI Bugs         │ 2       │ (Bug 1 & 2)  │
-│   └── Identified Improvement Gaps (Fails)    │ 5       │ (Imp 1 to 5) │
-└──────────────────────────────────────────────┴─────────┴──────────────┘
+┌────────────────────────────────────────────────────────┬─────────────┬──────────────┐
+│ KPI Metric Category                                    │ Count       │ Ratio / %    │
+├────────────────────────────────────────────────────────┼─────────────┼──────────────┤
+│ Total Cards Logged & Verified                          │ 41 Items    │ 100.0%       │
+│ ├── Confirmed Functional / UI / Security Bugs [BUG]    │ 34 Items    │ 82.9%        │
+│ └── Architectural & Feature Improvements [IMP]         │ 7 Items     │ 17.1%        │
+├────────────────────────────────────────────────────────┼─────────────┼──────────────┤
+│ Severity Breakdown:                                    │             │              │
+│ ├── Critical (P0 / Financial Leakage / Security Bypass)│ 4 Items     │ 9.8%         │
+│ ├── High (P1 / RBAC Privilege / Broken Business Logic) │ 17 Items    │ 41.5%        │
+│ ├── Medium (P2 / UI Overflows / Incomplete Handlers)   │ 12 Items    │ 29.3%        │
+│ └── Low (P3 / Minor Visuals / Sanitization / Labels)   │ 8 Items     │ 19.5%        │
+├────────────────────────────────────────────────────────┼─────────────┼──────────────┤
+│ Target Scope Distribution:                             │             │              │
+│ ├── Admin Portal & BFF Backend (admin.laundrybd.com)   │ 23 Items    │ 56.1%        │
+│ └── Storefront & Customer Journey (laundrybd.com)      │ 18 Items    │ 43.9%        │
+└────────────────────────────────────────────────────────┴─────────────┴──────────────┘
+```
+
+### 🎯 Severity & Risk Distribution Chart
+
+| Severity Level | Count | Share (%) | Primary Impact Scope |
+| :--- | :---: | :---: | :--- |
+| **🔴 Critical (P0)** | **4** | **9.8%** | Billing omissions (#4), Unenforced RBAC matrix (#8), Broken booking endpoints (#33), Super Admin recovery lockout (#37) |
+| **🟠 High (P1)** | **17** | **41.5%** | RBAC bypasses (#2, #7), Stale cache (#6), User-Staff sync (#10), Settings validation (#12, #14), Financial & COD dues (#18, #19, #20, #21), Moderation filtering (#40) |
+| **🟡 Medium (P2)** | **12** | **29.3%** | Cart & mobile layout breaks (#1, #3), Double salary forms (#11), Security rule overwrites (#16, #17), Session redirects (#25, #26), Slot ordering (#41) |
+| **🟢 Low (P3)** | **8** | **19.5%** | Password whitespace (#15), Ghost clicks (#22), Validation text (#23), Offline asset 404 (#24), Input placeholders (#28), Bangla search (#36) |
+
+---
+
+## 🗂️ Module-by-Module Distribution
+
+```mermaid
+pie title Issue Distribution by Functional Module
+    "RBAC & Security" : 7
+    "Storefront, Cart & Responsive UX" : 12
+    "Billing, Orders & Financials" : 6
+    "Settings & Global Configuration" : 3
+    "Staff, Payroll & Users" : 3
+    "Customer Management & Moderation" : 3
+    "Auth, Passwords & Recovery" : 5
+    "Scheduling & Slots" : 2
 ```
 
 ---
 
-## ১. Homepage Feature (`/`)
+## 📋 Master Issue Tracking Table (Cards 1 – 41)
 
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_HOME_01** | Basic homepage metadata verification | Manual / DOM | Title, description, viewport এবং theme color থাকবে | Description, viewport and theme color found | **Pass** |
-| **TC_HOME_02** | OpenGraph metadata verification | Manual / Source | `og:title`, `og:image`, `og:url` ট্যাগ থাকবে | OpenGraph tags missing | **Fail** |
-| **TC_HOME_03** | Twitter Card metadata verification | Manual / Source | `twitter:card`, `twitter:title` ট্যাগ থাকবে | Twitter Card tags missing | **Fail** |
-| **TC_HOME_04** | Favicon & Web Manifest verification | Manual / Network | Favicon, apple touch icon এবং manifest লোড হবে | Favicon, manifest and touch icons found | **Pass** |
-| **TC_HOME_05** | Source map exposure check | Network | প্রোডাকশন বান্ডেলে `.map` ফাইল লিক হবে না | No source map requests observed | **Pass** |
-| **TC_HOME_06** | Service Area Checker (English Query) | Manual UI | সিলেটের ৩০টি এরিয়া সার্চে ম্যাচ করবে | এরিয়া সিলেক্ট করা যায় এবং ড্রপডাউন কাজ করে | **Pass** |
-| **TC_HOME_07** | Service Area Checker (Bengali Query) | Manual UI | বাংলায় এরিয়া সার্চ করা যাবে (`জিন্দাবাজার`) | বাংলায় সার্চ করলে কোনো এরিয়া ম্যাচ করে না | **Fail** |
-| **TC_HOME_08** | Image Optimization on Logo | Network / DevTools | অপ্টিমাইজড WebP ফরম্যাটে ছবি লোড হবে | ৯৮.৬% সাইজ রিডাকশন সহ WebP ফরম্যাটে লোড হয়েছে | **Pass** |
-| **TC_HOME_09** | Floating Bag Widget on Homepage | Manual UI | কার্টে কাপড় থাকলে হোমপেজে ভাসমান বার দেখাবে | আইটেম যোগ করলে নিচে ফ্লোটিং বার দেখা যায় | **Pass** |
+Every card listed below links directly to its official Trello card for complete auditability.
 
----
-
-## ২. Authentication & Security Feature (`/login/`, `/api/auth/`)
-
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_AUTH_01** | Valid User Login | API / Manual | সঠিক ফোন ও পাসওয়ার্ডে সেশন তৈরি হবে | HTTP 200 OK, সেশন কুকি সেট হয়েছে | **Pass** |
-| **TC_AUTH_02** | Phone Normalization | Manual / API | `01XXXXXXXXX` ও `+8801...` গ্রহণ করবে | ফোন নম্বর ১১ ডিজিটে স্বয়ংক্রিয় নরমালাইজড হয় | **Pass** |
-| **TC_AUTH_03** | Account Lockout on 3 Failed Attempts | Manual / API | টানা ৩ বার ভুল পাসওয়ার্ড দিলে অ্যাকাউন্ট লক হবে | HTTP 423 Locked (১৫ মিনিটের জন্য লক) | **Pass** |
-| **TC_AUTH_04** | IP-based Rate Limiting / Throttling | API Test | ৬০ সেকেন্ডে অতিরিক্ত রিকোয়েস্টে ব্লক করবে | HTTP 429 Too Many Requests এনফোর্সড | **Pass** |
-| **TC_AUTH_05** | User Enumeration Timing Attack Check | API Test | বিদ্যমান ও অবিদ্যমান নম্বরে রেসপন্স টাইম সমান থাকবে | টাইমিং পার্থক্য নেই, ইউজার এনুমারেশন সুরক্ষিত | **Pass** |
-| **TC_AUTH_06** | Access Token Cookie (`lbd_at`) Security | Security / DevTools | `Secure` এবং `SameSite` সঠিকভাবে থাকবে | `Secure=True`, `SameSite=Lax` সক্রিয় | **Pass** |
-| **TC_AUTH_07** | Refresh Token Cookie (`lbd_rt`) Security | Security / DevTools | `Secure` এবং `SameSite` সঠিকভাবে থাকবে | `Secure=True`, `SameSite=Lax` সক্রিয় | **Pass** |
-| **TC_AUTH_08** | JavaScript Cookie Accessibility Check | Security | ক্লায়েন্ট স্ক্রিপ্ট কুকি রিড করতে পারবে না | Cookie configuration inspected | **Pass** |
-| **TC_AUTH_09** | Cross-account order access using GET | API / Security | অন্য গ্রাহকের অর্ডার এক্সেস আটকাবে | HTTP 404 Not Found (সুরক্ষিত) | **Pass** |
-| **TC_AUTH_10** | Ghost Click / Focus State Retention | Manual UI | লগআউট বা ফর্ম সাবমিটের পর বাটন ফোকাস রিসেট হবে | পূর্ববর্তী অ্যাক্টিভ/ফোকাস স্টেট থেকে যায় | **Fail** |
-| **TC_AUTH_11** | Session Termination on Logout | API / Manual | `/api/auth/logout/` দিলে সেশন বাতিল হবে | HTTP 200 OK -> পরবর্তীতে `/auth/me` কল করলে 401 দেয় | **Pass** |
-
----
-
-## ৩. Registration Feature (`/register/`)
-
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_REG_01** | Open Redirect Defense via `?next=` | Security / Manual | বহিরাগত সাইটে রিডাইরেক্ট হবে না | বহিরাগত URL ব্লক করে ইন্টারনাল রুটে রাখে | **Pass** |
-| **TC_REG_02** | Full Name Boundary Validation | Manual / API | নাম ২ থেকে ১২০ অক্ষরের মধ্যে হতে হবে | ২ অক্ষরের কম দিলে ভ্যালিডেশন আটকায় | **Pass** |
-| **TC_REG_03** | Password Maximum Length Validation | Manual UI / Form | ৬৪ অক্ষরের বেশি দিলে স্পষ্ট এরর জানাবে | জেনেরিক/মিসলিডিং এরর দেখায়, সঠিক মেসেজ নেই | **Fail** |
-| **TC_REG_04** | Password Whitespace Acceptance | Manual UI | পাসওয়ার্ডে শুরুতে/শেষে স্পেস থাকলে ওয়ার্নিং দেবে | কোনো ওয়ার্নিং ছাড়া স্পেস গ্রহণ করে | **Fail** |
-| **TC_REG_05** | Duplicate Phone Registration | API Test | ইতিমধ্যে রেজিস্টার্ড নম্বর দিয়ে সাইন-আপ আটকাবে | HTTP 409 Conflict (*"Phone already registered"*) | **Pass** |
-| **TC_REG_06** | Auto-Session after Registration | Manual UI | রেজিস্ট্রেশন সফল হলে সরাসরি লগইন হয়ে যাবে | স্বয়ংক্রিয়ভাবে সেশন কুকি সেট হয়ে ড্যাশবোর্ডে পাঠায় | **Pass** |
-
----
-
-## ৪. Price List Feature (`/price-list/`)
-
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_PRICE_01**| 45 Garments & 4 Core Services Rates | Manual / Audit | ৪৫টি কাপড় ও ৪টি সার্ভিসের রেট সঠিক থাকবে | সব কাপড় এবং সার্ভিসের রেট হুবহু প্রদর্শিত | **Pass** |
-| **TC_PRICE_02**| Bilingual Search (English Query) | Manual UI | ইংরেজিতে লিখলে কাপড় ফিল্টার হবে | `Shirt`, `Panjabi` ইত্যাদি লিখে সার্চ কাজ করে | **Pass** |
-| **TC_PRICE_03**| Bilingual Search (Bengali Query) | Manual UI | বাংলায় কাপড়ের নাম লিখলে ফিল্টার হবে | `শার্ট`, `শাড়ি` ইত্যাদি লিখলে কাপড় ফিল্টার হয় | **Pass** |
-| **TC_PRICE_04**| Category Tab Switching | Manual UI | Men, Women, Kids, Household ট্যাবে সঠিক আইটেম আসবে | কোনো লেআউট শিফট ছাড়া ক্যাটাগরি ফিল্টারিং কাজ করে | **Pass** |
-| **TC_PRICE_05**| Empty Search State | Manual UI | কোনো কাপড় না মিললে নো-রেজাল্ট স্টেট দেখাবে | ফ্রেন্ডলি খালি স্টেট ও সার্চ ক্লিয়ার বাটন প্রদর্শন করে | **Pass** |
-| **TC_PRICE_06**| Responsive View (Table vs Cards) | Manual UI | ডেস্কটপে টেবিল এবং মোবাইলে কার্ড ভিউ দেখাবে | মোবাইলে কমপ্যাক্ট রেসপনসিভ কার্ড রেন্ডার হয় | **Pass** |
+| # | Type | Severity | Module & Sub-Area | Issue Title & Direct Trello Card Link | Status |
+| :-: | :--: | :------: | :---------------- | :------------------------------------ | :----: |
+| **1** | `BUG` | 🟡 Medium | Storefront / Cart & Checkout | [[BUG][200][live] Cart Page Layout Breaks When Clicking "Order in 1 Min" with a Long Product Name](https://trello.com/c/MsqG0szu/75-bug200live-cart-page-layout-breaks-when-clicking-order-in-1-min-with-a-long-product-name) | **Done** |
+| **2** | `BUG` | 🟠 High | Security & Access Control (RBAC) | [[BUG][200][live] Role-Based Permission Controls Are Missing for Super Admin](https://trello.com/c/UAydBAJh/62-bug200live-role-based-permission-controls-are-missing-for-super-admin) | **Done** |
+| **3** | `BUG` | 🟡 Medium | Storefront / UI Layout | [[BUG][200][live] Mobile Layout Breaks When Product Name Contains Long Text](https://trello.com/c/iRT57cXj/74-bug200live-mobile-layout-breaks-when-product-name-contains-long-text) | **Done** |
+| **4** | `BUG` | 🔴 Critical | Billing & Order Calculation | [[BUG][200][live] Package Bill Is Excluded from the Total Bill Calculation](https://trello.com/c/aXxCrP1m/70-bug200live-package-bill-is-excluded-from-the-total-bill-calculation) | **Done** |
+| **5** | `BUG` | 🟠 High | Promotions & Coupons | [[BUG][200][live] Coupon Code Can Be Applied to Orders Placed Through a Package](https://trello.com/c/2WNBxW8z/73-bug200live-coupon-code-can-be-applied-to-orders-placed-through-a-package) | **Done** |
+| **6** | `BUG` | 🟠 High | Storefront & Garments Catalog | [[BUG][200][live] Newly Added or Updated Active Garments Do Not Appear on Frontend Price List Due to Stale Cache](https://trello.com/c/xGfU9uBx/76-bug200live-newly-added-or-updated-active-garments-do-not-appear-on-frontend-price-list-due-to-stale-cache) | **Done** |
+| **7** | `BUG` | 🟠 High | Security & Access Control (RBAC) | [[BUG][200][live] ADMIN Can Bypass Read-Only RBAC UI and Modify Global Role Permissions via Backend API](https://trello.com/c/KNiL2Z2T/77-bug200live-admin-can-bypass-read-only-rbac-ui-and-modify-global-role-permissions-via-backend-api) | **Done** |
+| **8** | `BUG` | 🔴 Critical | Security & Access Control (RBAC) | [[BUG][200][live] RBAC Permission Matrix Changes Are Not Enforced by Frontend or Backend Authorization](https://trello.com/c/Zw24iV67/78-bug200live-rbac-permission-matrix-changes-are-not-enforced-by-frontend-or-backend-authorization) | **Done** |
+| **9** | `BUG` | 🟠 High | Staff Portal & Access Guard | [[BUG][200][live] STAFF Route Guard Inconsistency, Blank Reports Page, Unnecessary Dashboard 403, and Unrestricted Order Detail Controls](https://trello.com/c/IqPenxka/79-bug200live-staff-route-guard-inconsistency-blank-reports-page-unnecessary-dashboard-403-and-unrestricted-order-detail-controls) | **Done** |
+| **10** | `BUG` | 🟠 High | Staff & User Synchronization | [[BUG][200][live] Newly Created User Accounts Do Not Automatically Appear in the Staff List](https://trello.com/c/SX56WQdX/80-bug200live-newly-created-user-accounts-do-not-automatically-appear-in-the-staff-list) | **Done** |
+| **11** | `BUG` | 🟡 Medium | Payroll & Salary Management | [[BUG][200][live] Salary Payment Form Remains Active for an Already Paid Month](https://trello.com/c/I8TZbUiA/81-bug200live-salary-payment-form-remains-active-for-an-already-paid-month) | **Done** |
+| **12** | `BUG` | 🟠 High | Settings & Business Configuration | [[BUG][200][live] Missing UI and Backend Validation Allows Invalid Business and Checkout Settings to Be Saved](https://trello.com/c/DnjlJUAU/84-bug200live-missing-ui-and-backend-validation-allows-invalid-business-and-checkout-settings-to-be-saved) | **Done** |
+| **13** | `BUG` | 🟡 Medium | Settings & Policy Management | [[BUG][200][live] Obsolete Return & Refund Policy Field and Duplicate Service Areas with Silent Duplicate Rejection](https://trello.com/c/bWWbsZ0e/82-bug200live-obsolete-return-refund-policy-field-and-duplicate-service-areas-with-silent-duplicate-rejection) | **Done** |
+| **14** | `BUG` | 🟠 High | Settings & Global Constants | [[BUG][200][live] UI-Locked Currency and Time Zone Settings Can Be Modified Through Direct API Requests](https://trello.com/c/t73JDnJ5/83-bug200live-ui-locked-currency-and-time-zone-settings-can-be-modified-through-direct-api-requests) | **Done** |
+| **15** | `IMP` | 🟢 Low | Authentication & Credentials | [[IMP][200][live] Improve Leading and Trailing Whitespace Validation in Password Fields](https://trello.com/c/yOuXn7kV/46-imp200live-improve-leading-and-trailing-whitespace-validation-in-password-fields) | **Done** |
+| **16** | `BUG` | 🟡 Medium | Security & Firewall (IP Blocker) | [[BUG][200][live] Blocking an Already Blocked IP Silently Overwrites the Existing Block Rule](https://trello.com/c/abz3xm6k/85-bug200live-blocking-an-already-blocked-ip-silently-overwrites-the-existing-block-rule) | **Done** |
+| **17** | `BUG` | 🟡 Medium | Security & Audit Trail (IP Blocker) | [[BUG][200][live] Unblocking an IP Permanently Deletes Its Record and Removes It from Ended Block History](https://trello.com/c/NlbmnWcx/86-bug200live-unblocking-an-ip-permanently-deletes-its-record-and-removes-it-from-ended-block-history) | **Done** |
+| **18** | `IMP` | 🟠 High | Order & Financial Management | [[IMP][200][live] Implement a Proper Refund Management Feature for Customer Orders](https://trello.com/c/tBAdQ337/87-imp200live-implement-a-proper-refund-management-feature-for-customer-orders) | **Done** |
+| **19** | `BUG` | 🟠 High | Order Status & Billing | [[BUG][200][live] Due Payment Status Is Not Displayed After Order Delivery](https://trello.com/c/nGIl1jJf/88-bug200live-due-payment-status-is-not-displayed-after-order-delivery) | **Done** |
+| **20** | `BUG` | 🟠 High | Payments & Cash on Delivery | [[BUG][200][live] Missing Payment Received Option for Cash on Delivery Orders](https://trello.com/c/wkfd4D48/89-bug200live-missing-payment-received-option-for-cash-on-delivery-orders) | **Done** |
+| **21** | `BUG` | 🟠 High | Reporting & Financial Analytics | [[BUG][200][live] Package Sales Amount Is Not Included in Total Sales](https://trello.com/c/vBvxyZjg/90-bug200live-package-sales-amount-is-not-included-in-total-sales) | **Done** |
+| **22** | `BUG` | 🟢 Low | Storefront / Interaction State | [[BUG][200][live] Ghost Click and Focus State Retention After Logout or Form Submission](https://trello.com/c/cw5L9hgj/47-bug200live-ghost-click-and-focus-state-retention-after-logout-or-form-submission) | **Done** |
+| **23** | `BUG` | 🟢 Low | Authentication / Validation | [[BUG][200][live] Incorrect Validation Message for Passwords Exceeding Maximum Length](https://trello.com/c/oYpACpSK/48-bug200live-incorrect-validation-message-for-passwords-exceeding-maximum-length) | **Done** |
+| **24** | `BUG` | 🟢 Low | Storefront / Network Resilience | [[BUG][200][live] Broken Offline Indicator Image on the "You're Offline" Page](https://trello.com/c/r7xqQCR8/50-bug200live-broken-offline-indicator-image-on-the-youre-offline-page) | **Done** |
+| **25** | `BUG` | 🟡 Medium | Authentication / Session Lifecycle | [[BUG][200][live] Incorrect Error State and Missing Login Redirection After Logout](https://trello.com/c/ZiYk5hle/51-bug200live-incorrect-error-state-and-missing-login-redirection-after-logout) | **Done** |
+| **26** | `BUG` | 🟡 Medium | Storefront / Responsive Navigation | [[BUG][200][live] Login Button Missing After Logout in Mobile Browser Until Page Refresh](https://trello.com/c/g8f5O4LR/49-bug200live-login-button-missing-after-logout-in-mobile-browser-until-page-refresh) | **Done** |
+| **27** | `BUG` | 🟡 Medium | Pickup & Delivery Scheduling | [[BUG][200][live] Long Unbroken Customer Address Overflows Pickup Card and Breaks Page Layout](https://trello.com/c/ulXqrflL/71-bug200live-long-unbroken-customer-address-overflows-pickup-card-and-breaks-page-layout) | **Done** |
+| **28** | `BUG` | 🟢 Low | Pickup & Delivery Form | [[BUG][200][live] Add Placeholder Text to Floor Input Field](https://trello.com/c/jiqh3my0/72-bug200live-add-placeholder-text-to-floor-input-field) | **Done** |
+| **29** | `BUG` | 🟡 Medium | Admin Garments Management | [[BUG][200][live] Garment Table Layout Breaks Due to Long Text and Incorrect Price Alignment](https://trello.com/c/9gbgbTW6/69-bug200live-garment-table-layout-breaks-due-to-long-text-and-incorrect-price-alignment) | **Done** |
+| **30** | `IMP` | 🟢 Low | Authentication / Navigation Flow | [[IMP][200][live] Redirect Users to Home Page After Successful Login or Signup](https://trello.com/c/0vToWQzy/68-imp200live-redirect-users-to-home-page-after-successful-login-or-signup) | **Done** |
+| **31** | `IMP` | 🟠 High | Customer Management & Subscriptions | [[IMP][200][live] Add Customer Creation and Manual Package Assignment Options in Admin Panel](https://trello.com/c/tMrtAIwa/67-imp200live-add-customer-creation-and-manual-package-assignment-options-in-admin-panel) | **Done** |
+| **32** | `BUG` | 🟢 Low | Storefront / Package Details | [[BUG][200][live] Long Short Description Text Overflows Its Container in Package Details](https://trello.com/c/kWZ0cyjC/66-bug200live-long-short-description-text-overflows-its-container-in-package-details) | **Done** |
+| **33** | `BUG` | 🔴 Critical | Booking & API Routing | [[BUG][200][live] Unknown Endpoint Error Occurs When Submitting Booking or Package Requests](https://trello.com/c/DuqVNKmz/65-bug200live-unknown-endpoint-error-occurs-when-submitting-booking-or-package-requests) | **Done** |
+| **34** | `IMP` | 🟠 High | Storefront / Checkout Funnel | [[IMP][200][live] Add Direct Package Booking and Checkout Instead of WhatsApp Redirection](https://trello.com/c/NMKFmfCj/63-imp200live-add-direct-package-booking-and-checkout-instead-of-whatsapp-redirection) | **Done** |
+| **35** | `BUG` | 🟠 High | Admin Catalog & Packages | [[BUG][200][live] Package/Bundle Management Option Missing from Admin Panel](https://trello.com/c/lNsGiMDG/64-bug200live-package-bundle-management-option-missing-from-admin-panel) | **Done** |
+| **36** | `IMP` | 🟢 Low | Storefront / Localization | [[IMP][200][live] Add Bengali Language Support to Service Area Checker](https://trello.com/c/l2OBgam3/45-imp200live-add-bengali-language-support-to-service-area-checker) | **Done** |
+| **37** | `BUG` | 🔴 Critical | Authentication / Recovery | [[BUG][200][live] Super Admin Cannot Recover Forgotten Password Without Another](https://trello.com/c/oPRRlUeP/57-bug200live-super-admin-cannot-recover-forgotten-password-without-another) | **Done** |
+| **38** | `BUG` | 🟠 High | Security & IP Management | [[BUG][200][live] Unblock IP Action Fails Due to Null Reference Error](https://trello.com/c/lFSO8AH2/61-bug200live-unblock-ip-action-fails-due-to-null-reference-error) | **Done** |
+| **39** | `IMP` | 🟡 Medium | Customer Drawer & Moderation | [[IMP][200][live] Add Block/Unblock Customer Option to Customer Details Drawer](https://trello.com/c/hbiWGuJT/60-imp200live-add-block-unblock-customer-option-to-customer-details-drawer) | **Done** |
+| **40** | `BUG` | 🟠 High | Customer Moderation & Filtering | [[BUG][200][live] Blocked Customers Tab Displays Active Customers Instead of Blocked Customers](https://trello.com/c/F5OM5oK2/59-bug200live-blocked-customers-tab-displays-active-customers-instead-of-blocked-customers) | **Done** |
+| **41** | `BUG` | 🟡 Medium | Pickup & Delivery Scheduling | [[BUG][200][live] Time Slots Are Displayed in Incorrect Order](https://trello.com/c/MruFXmN3/58-bug200live-time-slots-are-displayed-in-incorrect-order) | **Done** |
 
 ---
 
-## ৫. Monthly Packages Feature (`/packages/`)
+## 🔍 Detailed Card Documentation & Defect Analysis (1 to 41)
 
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_PKG_01** | Package Tiers & Pricing Check | Manual Audit | Solo (1500 TK), Family (3000 TK), Premium (5000 TK) | ৩টি প্যাকেজের বিবরণ ও দাম সঠিক রয়েছে | **Pass** |
-| **TC_PKG_02** | 9-Row Comparison Matrix | Manual UI | প্যাকেজগুলোর ফিচার ও পার্থক্য টেবিলে দেখাবে | ফুল কম্প্যারিজন টেবিল সুন্দরভাবে রেন্ডার হয় | **Pass** |
-| **TC_PKG_03** | Package Order via WhatsApp Buttons | Manual / Action | বাটনে ক্লিক করলে প্রি-ফিল্ড হোয়াটসঅ্যাপ চ্যাট ওপেন হবে | `wa.me` লিংকে সঠিক প্রি-ফিল্ড টেক্সটসহ ওপেন হয় | **Pass** |
-| **TC_PKG_04** | Direct Online Cart Purchase of Package | Manual / API | সাইট থেকে সরাসরি প্যাকেজ কার্টে যোগ করা যাবে | অন-সাইট চেকআউট নেই, ব্যাকএন্ড এপিআই 404 (অ্যাসিস্টেড মডেল) | **Pass** |
+### 1. [BUG][200][live] Cart Page Layout Breaks When Clicking "Order in 1 Min" with a Long Product Name
 
----
-
-## ৬. Contact Us Feature (`/contact/`)
-
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_CNT_01** | Support Channels & Hotline Check | Manual Audit | লাইভ হেল্পলাইন ও সাপোর্ট ইমেইল থাকবে | হেল্পলাইনে ডামি নম্বর `+880 1700-000000` রয়েছে | **Pass** |
-| **TC_CNT_02** | Contact Form Validation | Manual UI | Name, Topic, Message [5, 1000] অক্ষর যাচাই করবে | রিকোয়ার্ড ফিল্ড খালি রাখলে ভ্যালিডেশন আটকায় | **Pass** |
-| **TC_CNT_03** | WhatsApp Submission & Security | Manual / Network | মেসেজ ফরম্যাট করে হোয়াটসঅ্যাপে পাঠাবে ও ট্যাব সেফ থাকবে | ফরম্যাটেড টেক্সট তৈরি করে `noopener` সহ খোলে | **Pass** |
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/MsqG0szu/75-bug200live-cart-page-layout-breaks-when-clicking-order-in-1-min-with-a-long-product-name)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Storefront / Cart & Checkout` (UI/UX & Responsive Layout)
+* **Problem Summary:** When a customer adds a product with an unusually long name to the cart and triggers the "Order in 1 Min" quick checkout modal/panel, the container styling does not enforce proper word-wrapping or text truncation. As a result, the modal container overflows horizontally, breaking the layout on mobile and desktop viewports.
+* **Expected Result:** Long product titles should wrap cleanly using CSS `overflow-wrap: break-word` or `text-overflow: ellipsis`, maintaining the modal and checkout layout within viewport boundaries.
+* **Actual Result:** The flexbox/grid layout expands uncontrollably horizontally, pushing CTA buttons off-screen.
 
 ---
 
-## ৭. Customer Account Feature (`/account/`)
+### 2. [BUG][200][live] Role-Based Permission Controls Are Missing for Super Admin
 
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_ACC_01** | Unauthenticated Access Protection | API / Manual | লগইন ছাড়া ঢুকলে লগইন পেজে রিডাইরেক্ট করবে | HTTP 307 Temporary Redirect -> `/login/?next=...` | **Pass** |
-| **TC_ACC_02** | Customer Profile Load (`GET /auth/me/`) | API Test | ইউজারের নাম, ফোন ও অর্ডারের সংখ্যা দেখাবে | প্রোফাইল ও মোট অর্ডারের ডেটা সঠিকভাবে রিটার্ন করে | **Pass** |
-| **TC_ACC_03** | Profile Name & Email Update | API Test | নাম ও ইমেইল সফলভাবে পরিবর্তন করা যাবে | HTTP 200 OK -> ডেটাবেসে আপডেট নিশ্চিত | **Pass** |
-| **TC_ACC_04** | Profile Phone Immutability | API Test | প্রোফাইল থেকে ফোন নম্বর পরিবর্তন করা যাবে না | HTTP 400 (*"property phone should not exist"*) | **Pass** |
-| **TC_ACC_05** | Password Change with Incorrect Password | API Test | বর্তমান পাসওয়ার্ড ভুল দিলে এরর দেবে | HTTP 401 (*"Current password is incorrect"*) | **Pass** |
-| **TC_ACC_06** | Address Book Full CRUD Lifecycle | API / Manual | ঠিকানা তৈরি, পড়া, আপডেট ও ডিলিট করা যাবে | শিবগঞ্জে অফিস অ্যাড্রেস তৈরি, এডিট ও ডিলিট সফল | **Pass** |
-| **TC_ACC_07** | Strict Sylhet Geo-Fencing on Address | API Test | সিলেটের বাইরের ঠিকানা দিলে সার্ভার রিজেক্ট করবে | ধানমন্ডি ঠিকানা দিলে HTTP 400 ও ৩০টি এরিয়ার লিস্ট দেয় | **Pass** |
-| **TC_ACC_08** | Order History & Status Filter | API Test | গ্রাহক তার অর্ডার ও বাতিল অর্ডার দেখতে পারবেন | `status=CANCELLED` ফিল্টার ও পেজিনেশন সফল | **Pass** |
-| **TC_ACC_09** | Order IDOR Protection | Security / API | অন্য ইউজারের অর্ডার আইডি দিলে 404 দেবে | ফেক বা অন্য ইউজারের UUID দিলে HTTP 404 Not Found দেয় | **Pass** |
-| **TC_ACC_10** | Customer Self-Service Order Cancel | API / Manual | পেন্ডিং অর্ডার কাস্টমার নিজে কারণসহ বাতিল করবে | HTTP 200 OK -> স্ট্যাটাস `CANCELLED` সেভ হয়েছে | **Pass** |
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/UAydBAJh/62-bug200live-role-based-permission-controls-are-missing-for-super-admin)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Security & Access Control (RBAC)` (Admin Authorization & Matrix)
+* **Problem Summary:** In the Role-Based Access Control configuration page (/users/roles), explicit permission matrix overrides and granular policy toggles are completely absent or unconfigurable for the SUPER_ADMIN role. Super Admin implicitly bypasses all policy checks without granular audit capabilities.
+* **Expected Result:** Granular permissions should either be clearly documented as immutable system constants or displayed with explicit system-level indicators so administrative privilege boundaries remain visible and auditable.
+* **Actual Result:** SUPER_ADMIN role lacks explicit permission matrix controls, leaving privilege boundaries opaque.
 
 ---
 
-## ৮. Shopping Bag & Cart Feature (`/cart/`)
+### 3. [BUG][200][live] Mobile Layout Breaks When Product Name Contains Long Text
 
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_CART_01**| Empty Bag Zero-State | Manual UI | কার্ট খালি থাকলে নো-আইটেম মেসেজ ও বাটন দেখাবে | *"Your bag is empty"* ও প্রাইস লিস্ট বাটন প্রদর্শিত | **Pass** |
-| **TC_CART_02**| LocalStorage Persistence & Multi-tab Sync | Manual / JS | রিফ্রেশ দিলে কার্ট থাকবে ও অন্য ট্যাবে সিঙ্ক হবে | `laundrybd:bag:v2` কীতে রিয়েল-টাইমে সিঙ্ক হয় | **Pass** |
-| **TC_CART_03**| Quantity Stepper & Trash Transition | Manual UI | ১ পিসে মাইনাস চাপলে ট্র্যাশ আইকন হবে ও ডিলিট করবে | ১ পিসে ট্র্যাশ আইকন রেন্ডার হয় এবং ডিলিট করে | **Pass** |
-| **TC_CART_04**| Item Deletion "Undo" Functionality | Manual UI | আইটেম মুছে ফেললে টোস্টে Undo বাটন থাকবে | *"Shirt removed"* টোস্টে Undo চাপলে কাপড়টি ফিরে আসে | **Pass** |
-| **TC_CART_05**| "Clear bag" Snapshot "Undo" Restore | Manual UI | পুরো ব্যাগ ক্লিয়ার করার পরও Undo করা যাবে | *"Bag emptied"* টোস্টে Undo চাপলে পুরো ব্যাগ রিস্টোর হয় | **Pass** |
-| **TC_CART_06**| Item-Level Custom Note Editor | Manual UI | নির্দিষ্ট কাপড়ে বিশেষ নোট লেখা যাবে (সর্বোচ্চ ৫০০ অক্ষর) | নোট লিখলে কাপড়ের নিচে কোটেশন দিয়ে সুন্দর প্রদর্শন করে | **Pass** |
-| **TC_CART_07**| Dynamic 3-Stage Delivery Progress Bar | Manual UI | ২০০ ও ১০০০ টাকার ভিত্তিতে প্রোগ্রেসবার বদলাবে | <২০০ (হলুদ সতর্কতা), ২০০-৯৯৯ (প্রোগ্রেস), ১০০০+ (সবুজ ব্যানার) | **Pass** |
-| **TC_CART_08**| Minimum Order Cart Button State | Manual UI | ২০০ টাকার নিচে চেকআউট বাটন নিষ্ক্রিয় থাকবে | বাটন ডিজেবল থাকে এবং দেখায়: *"Add X TK more to continue"* | **Pass** |
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/iRT57cXj/74-bug200live-mobile-layout-breaks-when-product-name-contains-long-text)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Storefront / UI Layout` (Mobile Responsive View)
+* **Problem Summary:** On mobile viewports (< 480px), product cards displaying names with long unhyphenated words or extended strings fail to break lines properly, causing the card width to exceed the screen width and introducing horizontal scroll bars on the main storefront catalog.
+* **Expected Result:** Product cards should enforce strict responsive constraints with CSS `line-clamp` or responsive typography that adapts seamlessly to small screens.
+* **Actual Result:** Unbroken text causes horizontal page overflow and misaligns price/action badges on mobile.
 
 ---
 
-## ৯. Checkout Funnel & Engine Feature (`/checkout/`)
+### 4. [BUG][200][live] Package Bill Is Excluded from the Total Bill Calculation
 
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_CHK_01** | Valid Checkout Quote API (`/quote/`) | API Test | আইটেম পাঠালে সার্ভার কোটেশন দেবে | HTTP 200 OK | **Pass** |
-| **TC_CHK_02** | Quote calculation with quantity 1 | API Test | ১ পিসের সঠিক সাবটোটাল ও ডেলিভারি দেবে | Subtotal 20, Delivery 80, Total 100 | **Pass** |
-| **TC_CHK_03** | Quote calculation with quantity 2 | API Test | ২ পিসের লিনিয়ার ক্যালকুলেশন করবে | Subtotal 40, Delivery 80, Total 120 | **Pass** |
-| **TC_CHK_04** | Client-Side Price Manipulation Attempt | Security / API | ক্লায়েন্ট থেকে ভুল `unitPrice` পাঠালে সার্ভার আটকাবে | HTTP 400 Bad Request (unexpected property rejected) | **Pass** |
-| **TC_CHK_05** | Extra properties validation | API Test | পেলোডে বাড়তি ফিল্ড থাকলে রিজেক্ট করবে | HTTP 400 Bad Request | **Pass** |
-| **TC_CHK_06** | Invalid UUID validation | API Test | ভুল UUID দিলে সার্ভার রিজেক্ট করবে | HTTP 400 Bad Request | **Pass** |
-| **TC_CHK_07** | Invalid quantity validation (<= 0) | API Test | ০ বা নেগেটিভ পরিমাণ রিজেক্ট করবে | HTTP 400 Bad Request | **Pass** |
-| **TC_CHK_08** | Quote API without trailing slash | API Test | স্ল্যাশ ছাড়াও সফল রেসপন্স দেবে | HTTP 200 OK | **Pass** |
-| **TC_CHK_09** | Quote API with trailing slash | API Test | স্ল্যাশ সহ সফল রেসপন্স দেবে | HTTP 200 OK | **Pass** |
-| **TC_CHK_10** | Standard Flat Delivery Fee (80 BDT) | API Test | ১০০০ টাকার নিচের অর্ডারে ৮০ টাকা ডেলিভারি যোগ হবে | ৩০০ টাকার অর্ডারে ডেলিভারি ৮০ টাকা যোগ হয়ে ৩৮০ টাকা হয়েছে | **Pass** |
-| **TC_CHK_11** | Free Delivery Threshold (>= 1000 BDT) | API Test | ১০০০ বা ততোধিক অর্ডারে ডেলিভারি চার্জ ০ হবে | ১০৫০ টাকার অর্ডারে `deliveryCharge: 0`, `isFreeDelivery: true` | **Pass** |
-| **TC_CHK_12** | Coupon Engine (`WELCOME50`) | API / Manual | ৫০ টাকা ছাড় দেবে এবং ইনভ্যালিড কুপনে এরর দেবে | ৫০ টাকা বাদ গেছে; ভুল কুপনে `couponError` রিটার্ন করে | **Pass** |
-| **TC_CHK_13** | 3-Step Funnel State Guards | Manual UI | ঠিকানা ছাড়া স্লট বা স্লট ছাড়া রিভিউতে যাওয়া যাবে না | সরাসরি URL হিট করলেও রাউট গার্ড আগের ধাপে ফিরিয়ে দেয় | **Pass** |
-| **TC_CHK_14** | Real-Time 60-Minute Slot Cut-off Engine | API / Manual | স্লট শুরুর ৬০ মিনিট আগে বুকিং স্বয়ংক্রিয় বন্ধ হবে | সকাল ১০:৩৭-এ মর্নিং ও আফটারনুন স্লট বন্ধ (`available: false`) | **Pass** |
-| **TC_CHK_15** | Expired Slot Direct Order Block | Security / API | বন্ধ হয়ে যাওয়া স্লটে জোরপূর্বক অর্ডার প্লেস আটকাবে | HTTP 400 (*"This pickup slot is no longer available today"*) | **Pass** |
-| **TC_CHK_16** | 7-Day Advance Calendar (Strip vs Month) | Manual UI | আগামী ৭ দিনের স্লট ক্যালেন্ডারে দেখাবে | হরাইজন্টাল স্ট্রিপ ও ফুল মান্থ ভিউতে সঠিক স্লট প্রদর্শিত | **Pass** |
-| **TC_CHK_17** | Review Step 1-Click Jump Back | Manual UI | রিভিউ পেজ থেকে ঠিকানা বা স্লট এডিট করা যাবে | ১-ক্লিকে `?step=address` বা `?step=pickup`-এ ফিরে যাওয়া যায় | **Pass** |
-| **TC_CHK_18** | Payment Methods Selection | Manual UI | ৫টি পেমেন্ট মেথড সিলেক্ট করা যাবে | COD, bKash, Nagad, Rocket, Bank Transfer সিলেক্ট হয় | **Pass** |
-| **TC_CHK_19** | End-to-End Order Creation | API / Manual | অর্ডার তৈরি হবে, কোড জেনারেট হবে ও কার্ট খালি হবে | অর্ডার তৈরি সফল (`LB-261031-0001`), কার্ট ক্লিয়ার হয়েছে | **Pass** |
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/aXxCrP1m/70-bug200live-package-bill-is-excluded-from-the-total-bill-calculation)
+* **Classification:** `BUG` | **Severity:** `Critical` | **Module:** `Billing & Order Calculation` (Pricing & Financial Logic)
+* **Problem Summary:** When a customer purchases a package or places an order utilizing package service units, the package subscription/fee is omitted from the aggregate order total during checkout and database persistence. Customers are under-billed, creating critical revenue leakage.
+* **Expected Result:** The pricing computation engine must aggregate base garment charges, package tier fees, and delivery surcharges into the final payable invoice total.
+* **Actual Result:** Package charges evaluate to zero in the final calculation step, omitting required subscription billing.
 
 ---
 
-## ১০. Mobile View & Responsive Navigation Feature
+### 5. [BUG][200][live] Coupon Code Can Be Applied to Orders Placed Through a Package
 
-| Test ID | Test Scenario | Testing Type | Expected Result | Actual Result | Status |
-| :--- | :--- | :---: | :--- | :--- | :---: |
-| **TC_MOB_01** | Mobile Top Header Layout | Manual (Mobile) | মোবাইলে কমপ্যাক্ট হেডার থাকবে লোগো ও কার্ট সহ | `h-14` হেডারে লোগো ও কার্ট আইকন সুন্দরভাবে প্রদর্শিত | **Pass** |
-| **TC_MOB_02** | Dynamic Back Button on Mobile Sub-pages| Manual (Mobile) | সাব-পেজে লোগোর জায়গায় `← Back` বাটন আসবে | সাব-পেজে (যেমন `/faq/`) ব্যাক বাটন ও পেজের নাম প্রদর্শিত হয় | **Pass** |
-| **TC_MOB_03** | Mobile Primary Bottom Navigation Bar | Manual (Mobile) | স্ক্রিনের নিচে ফিক্সড ৪টি প্রধান ট্যাব থাকবে | Home, Prices, Orders, Account ট্যাব সুন্দরভাবে কাজ করে | **Pass** |
-| **TC_MOB_04** | Missing Primary Links in Mobile Navbar | Manual (Mobile) | Packages, FAQ, About, Contact মোবাইলে সহজে পাওয়া যাবে | মোবাইলে হ্যামবার্গার মেনু নেই; এই ৪টি লিংক অনুপস্থিত | **Fail** |
-| **TC_MOB_05** | Mobile Floating Bag Bar | Manual (Mobile) | ব্যাগে আইটেম থাকলে বটম বারের ওপরে ফ্লোটিং বার আসবে | ব্যাগে আইটেম যোগ করলে কালো ফ্লোটিং বারটি ভেসে ওঠে | **Pass** |
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/2WNBxW8z/73-bug200live-coupon-code-can-be-applied-to-orders-placed-through-a-package)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Promotions & Coupons` (Discount Validation Engine)
+* **Problem Summary:** Promotional discount coupons can be applied to orders that are already heavily discounted or fully covered by an active laundry package. Double-dipping discounts results in negative order balances or excessive promotional losses.
+* **Expected Result:** The coupon validation engine should check `order.has_package` and reject coupons with a clear validation message: "Coupons cannot be combined with package-based orders."
+* **Actual Result:** Coupons apply indiscriminately regardless of package coverage, compounding multiple promotional discounts.
 
 ---
 
-## ১১. কনফার্মড বাগ তালিকা (Bugs – Strictly 2 Items)
+### 6. [BUG][200][live] Newly Added or Updated Active Garments Do Not Appear on Frontend Price List Due to Stale Cache
 
-### 🐞 Bug 1: Ghost Click / Focus State Retention
-* **Test ID:** `TC_UI_01`
-* **Module:** Authentication & Navigation
-* **Observation:** Logout বা form submission-এর পর button/input-এর আগের focus বা active state থেকে যাচ্ছে বলে দেখা গেছে।
-* **Expected Result:** Logout বা form submission-এর পর UI state সঠিকভাবে reset হবে এবং অনাকাঙ্ক্ষিত click বা active state থাকবে না।
-* **Actual Result:** Previous active/focus state থেকে যাওয়ার সমস্যা পর্যবেক্ষণ করা হয়েছে।
-* **Suggested Fix:** Form reset, component state cleanup, focus management এবং event listener cleanup যাচাই করা।
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/xGfU9uBx/76-bug200live-newly-added-or-updated-active-garments-do-not-appear-on-frontend-price-list-due-to-stale-cache)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Storefront & Garments Catalog` (Caching & Data Synchronization)
+* **Problem Summary:** When an administrator creates a new garment item or updates prices via the admin portal, the customer storefront price list continues serving stale cached data. Cache invalidation hooks (Redis/HTTP cache tags) fail to trigger on mutation.
+* **Expected Result:** Modifications to garments in the admin panel should trigger an immediate cache invalidation/revalidation hook for the storefront price list.
+* **Actual Result:** Frontend displays outdated items and prices until manual server restarts or long TTL expiry.
 
 ---
 
-### 🐞 Bug 2: Password Maximum Length Validation
-* **Test ID:** `TC_VAL_01`
-* **Module:** Registration & Form Validation
-* **Observation:** Password field-এ 64/65+ characters দিলে generic বা misleading error দেখা যাচ্ছে।
-* **Expected Result:** Maximum character limit স্পষ্টভাবে জানাবে, যেমন: *"Password must be between 8 and 64 characters"*।
-* **Actual Result:** Maximum length অতিক্রম করলে সঠিক validation message পাওয়া যাচ্ছে না।
-* **Suggested Fix:** Frontend ও backend validation-এর মধ্যে consistency নিশ্চিত করা।
+### 7. [BUG][200][live] ADMIN Can Bypass Read-Only RBAC UI and Modify Global Role Permissions via Backend API
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/KNiL2Z2T/77-bug200live-admin-can-bypass-read-only-rbac-ui-and-modify-global-role-permissions-via-backend-api)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Security & Access Control (RBAC)` (API Privilege Escalation)
+* **Problem Summary:** While the admin frontend UI renders the RBAC permission matrix as disabled/read-only for standard ADMIN users, the backend endpoint (e.g. PUT /api/bff/admin/roles/permissions) lacks server-side role validation. A standard ADMIN can forge API payloads and grant themselves or other roles elevated permissions.
+* **Expected Result:** The backend API must enforce strict role verification: only SUPER_ADMIN should be authorized to update role permission mappings (returning 403 Forbidden for ADMIN).
+* **Actual Result:** API returns 200 OK and mutates permissions despite the UI being locked, enabling privilege escalation.
 
 ---
 
-## ১২. সিস্টেম ইমপ্রুভমেন্ট তালিকা (Improvements – Strictly 6 Items)
+### 8. [BUG][200][live] RBAC Permission Matrix Changes Are Not Enforced by Frontend or Backend Authorization
 
-1. **TC_IMP_01: Bengali Language Support in Service Area Checker**
-   * *Observation:* Service Area Checker-এ বাংলা এলাকার নাম দিয়ে search করার সুবিধা প্রয়োজন।
-   * *Suggestion:* `zindabazar`-এর পাশাপাশি `জিন্দাবাজার`, `উপশহর`, `টিলাগড়` ইত্যাদি বাংলা নাম support করা।
-   * *Expected Benefit:* স্থানীয় গ্রাহকদের জন্য সহজ search experience।
-2. **TC_IMP_02: Prevent Leading and Trailing Spaces in Password Fields**
-   * *Observation:* Password field-এ leading/trailing spaces গ্রহণ করা হয়।
-   * *Suggestion:* Accidental whitespace সম্পর্কে user-কে স্পষ্টভাবে জানানো অথবা উপযুক্ত validation দেওয়া।
-   * *Expected Benefit:* Login-related confusion কমানো।
-3. **TC_IMP_03: Improve Mobile Navigation Accessibility**
-   * *Observation:* Mobile view-তে Packages, FAQ, About Us এবং Contact page সহজে খুঁজে পাওয়া যায় না।
-   * *Suggestion:* Mobile menu বা navigation section-এ সরাসরি link যোগ করা।
-   * *Expected Benefit:* Mobile users সহজে প্রয়োজনীয় page খুঁজে পাবেন।
-4. **TC_IMP_04: Add OpenGraph and Twitter Card Metadata**
-   * *Observation:* Homepage-এ og:title, og:description, og:image, og:url এবং twitter:card পাওয়া যায়নি।
-   * *Suggestion:* Social sharing metadata যোগ করা।
-   * *Expected Benefit:* Facebook, Messenger ও WhatsApp-এ সুন্দর link preview প্রদর্শন।
-5. **TC_WEB_04: OpenGraph Metadata Verification**
-   * *Observation:* OpenGraph tags missing.
-   * *Suggestion:* Add OpenGraph metadata for rich preview.
-6. **TC_WEB_05: Twitter Card Metadata Verification**
-   * *Observation:* Twitter Card tags missing.
-   * *Suggestion:* Add Twitter card summary tags.
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/Zw24iV67/78-bug200live-rbac-permission-matrix-changes-are-not-enforced-by-frontend-or-backend-authorization)
+* **Classification:** `BUG` | **Severity:** `Critical` | **Module:** `Security & Access Control (RBAC)` (Policy Enforcement & Matrix)
+* **Problem Summary:** When permissions are modified and saved in the RBAC matrix (e.g., toggling staff edit off for MANAGER), neither frontend route guards nor backend controller middlewares enforce the updated permissions. The authorization logic relies on hardcoded role checks rather than the dynamic permissions table.
+* **Expected Result:** All middleware and route checks should query the active permission matrix for the role, immediately enforcing permission revoking or granting.
+* **Actual Result:** Changes in the matrix have zero effect on actual authorization enforcement in both UI and API.
+
+---
+
+### 9. [BUG][200][live] STAFF Route Guard Inconsistency, Blank Reports Page, Unnecessary Dashboard 403, and Unrestricted Order Detail Controls
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/IqPenxka/79-bug200live-staff-route-guard-inconsistency-blank-reports-page-unnecessary-dashboard-403-and-unrestricted-order-detail-controls)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Staff Portal & Access Guard` (Route Guards & Permissions)
+* **Problem Summary:** Users with the STAFF role encounter broken UI states: accessing /reports renders an empty blank page instead of an unauthorized message, dashboard API calls trigger unhandled 403 errors, and order detail screens fail to disable sensitive financial controls.
+* **Expected Result:** Staff routes should have consistent guards redirecting unauthorized screens cleanly, with appropriate endpoint filtering and read-only order status controls.
+* **Actual Result:** Staff users encounter silent page crashes, console errors, and exposed controls that fail upon interaction.
+
+---
+
+### 10. [BUG][200][live] Newly Created User Accounts Do Not Automatically Appear in the Staff List
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/SX56WQdX/80-bug200live-newly-created-user-accounts-do-not-automatically-appear-in-the-staff-list)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Staff & User Synchronization` (User-to-Staff Entity Linking)
+* **Problem Summary:** When a user is assigned a STAFF or MANAGER role in /users, no corresponding staff profile record is created in /staff. Attempting to add them manually from /staff causes a 409 Conflict ("User with this phone already exists"), permanently desynchronizing user accounts and employee records.
+* **Expected Result:** Assigning a staff role to an existing user should automatically link or generate the corresponding employee profile in the staff roster.
+* **Actual Result:** User accounts with staff roles remain detached, blocking payroll processing and profile management.
+
+---
+
+### 11. [BUG][200][live] Salary Payment Form Remains Active for an Already Paid Month
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/I8TZbUiA/81-bug200live-salary-payment-form-remains-active-for-an-already-paid-month)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Payroll & Salary Management` (Form State & Double Payouts)
+* **Problem Summary:** In the Staff Management page (/staff), the "Process Salary" / "Pay" action button remains enabled for employees who have already received their full salary for the current billing cycle. The UI does not reflect paid state until after a redundant submission triggers a backend error.
+* **Expected Result:** The Pay action should display a "Paid" status badge or disable the action for previously disbursed payroll periods.
+* **Actual Result:** Admins can open the dialog and attempt redundant payouts, receiving unhandled submission errors.
+
+---
+
+### 12. [BUG][200][live] Missing UI and Backend Validation Allows Invalid Business and Checkout Settings to Be Saved
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/DnjlJUAU/84-bug200live-missing-ui-and-backend-validation-allows-invalid-business-and-checkout-settings-to-be-saved)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Settings & Business Configuration` (Input Validation (UI & BFF API))
+* **Problem Summary:** The /settings form accepts malformed inputs across critical business configuration fields: support_email="bad-email", business_phone="123", site_url="invalid-url", max_addresses=0, and max_pickup_days_ahead=0 are all saved with 200 OK by both UI and backend API without schema validation.
+* **Expected Result:** Both frontend forms and backend schema validators must enforce strict regex, positive non-zero limits, and valid RFC email/URL standards.
+* **Actual Result:** Corrupt settings are written directly to the database, breaking storefront checkout logic downstream.
+
+---
+
+### 13. [BUG][200][live] Obsolete Return & Refund Policy Field and Duplicate Service Areas with Silent Duplicate Rejection
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/bWWbsZ0e/82-bug200live-obsolete-return-refund-policy-field-and-duplicate-service-areas-with-silent-duplicate-rejection)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Settings & Policy Management` (Dead Config & Duplicate Areas)
+* **Problem Summary:** The main settings page retains an obsolete markdown policy field that is completely disconnected from the live customer refund policy page (/en/return-policy). Additionally, the service area list contains duplicates ("Subhanighat" & "Sobhanighat") and silently drops duplicate additions without toast feedback.
+* **Expected Result:** Obsolete legacy settings fields should be removed, duplicate service areas normalized, and duplicate input attempts met with informative UI toast notifications.
+* **Actual Result:** Dead configuration fields confuse administrators, and silent UI rejections provide poor UX.
+
+---
+
+### 14. [BUG][200][live] UI-Locked Currency and Time Zone Settings Can Be Modified Through Direct API Requests
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/t73JDnJ5/83-bug200live-ui-locked-currency-and-time-zone-settings-can-be-modified-through-direct-api-requests)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Settings & Global Constants` (Fixed Settings Immutability)
+* **Problem Summary:** Although the Currency (BDT) and Time Zone (Asia/Dhaka) inputs are disabled in the web UI with the label "Fixed for this installation", direct PUT requests to /api/bff/admin/settings/currency and /timezone succeed with HTTP 200 OK, altering global financial calculations and scheduling timestamps.
+* **Expected Result:** System-critical constants must be immutable on the backend, returning HTTP 400 Bad Request or 403 Forbidden when targeted by modification requests.
+* **Actual Result:** Backend mutates immutable installation constants when bypassed via REST clients.
+
+---
+
+### 15. [IMP][200][live] Improve Leading and Trailing Whitespace Validation in Password Fields
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/yOuXn7kV/46-imp200live-improve-leading-and-trailing-whitespace-validation-in-password-fields)
+* **Classification:** `IMP` | **Severity:** `Low` | **Module:** `Authentication & Credentials` (Whitespace Input Sanitization)
+* **Problem Summary:** Users inadvertently copying passwords with accidental leading or trailing whitespace encounter authentication failures or create passwords with unintentional spaces without clear visual feedback.
+* **Expected Result:** Password inputs should either automatically trim accidental whitespaces or provide inline validation warnings informing users of trailing/leading space characters.
+* **Actual Result:** Whitespaces are processed silently, causing user lockout and unnecessary password reset cycles.
+
+---
+
+### 16. [BUG][200][live] Blocking an Already Blocked IP Silently Overwrites the Existing Block Rule
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/abz3xm6k/85-bug200live-blocking-an-already-blocked-ip-silently-overwrites-the-existing-block-rule)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Security & Firewall (IP Blocker)` (Rule Overwrite & Conflict Handling)
+* **Problem Summary:** When an admin attempts to block an IP that is already actively blocked with a specific duration (e.g., 24 hours), the API returns 201 Created and silently overwrites the existing rule with a permanent ("Until unblocked") duration without warning or conflict prompt.
+* **Expected Result:** The endpoint should detect active duplicate rules and return HTTP 409 Conflict, or prompt the admin to confirm rule modification.
+* **Actual Result:** Previous block reasons and specific expiration timers are wiped out silently.
+
+---
+
+### 17. [BUG][200][live] Unblocking an IP Permanently Deletes Its Record and Removes It from Ended Block History
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/NlbmnWcx/86-bug200live-unblocking-an-ip-permanently-deletes-its-record-and-removes-it-from-ended-block-history)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Security & Audit Trail (IP Blocker)` (Hard Deletes vs Soft Deletes)
+* **Problem Summary:** Unblocking an IP address via the security management UI triggers a hard DELETE request, permanently erasing the record from the database. Consequently, the "Including ended" audit tab shows zero historical records for manually unblocked IPs.
+* **Expected Result:** Unblocking an IP should perform a soft-update (setting `is_active=false` and `ended_at=NOW()`), preserving the complete security audit trail.
+* **Actual Result:** Hard deletion destroys security incident history, preventing forensics and historical trend analysis.
+
+---
+
+### 18. [IMP][200][live] Implement a Proper Refund Management Feature for Customer Orders
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/tBAdQ337/87-imp200live-implement-a-proper-refund-management-feature-for-customer-orders)
+* **Classification:** `IMP` | **Severity:** `High` | **Module:** `Order & Financial Management` (Refund Life-cycle & Ledger)
+* **Problem Summary:** Currently, when customer orders are cancelled or disputed after payment, the admin panel lacks a structured refund initiation and tracking mechanism. Financial reconciliations must be executed manually off-platform.
+* **Expected Result:** A structured "Refund Order" workflow with partial/full refund amount inputs, refund reason selection, and automated ledger adjustments should be integrated into order details.
+* **Actual Result:** No native refund module exists in the admin panel, leading to manual accounting discrepancies.
+
+---
+
+### 19. [BUG][200][live] Due Payment Status Is Not Displayed After Order Delivery
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/nGIl1jJf/88-bug200live-due-payment-status-is-not-displayed-after-order-delivery)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Order Status & Billing` (Due Status Visibility Post-Delivery)
+* **Problem Summary:** When an order is delivered to a customer without upfront settlement (credit/partial payment), marking the order as "Delivered" overwrites the prominent payment status badge. Staff and delivery drivers cannot easily distinguish whether an order has pending dues.
+* **Expected Result:** The order listing and detail views should clearly display compound status flags (e.g. "Delivered (Payment Due)") until total receivables are cleared.
+* **Actual Result:** Delivered orders mask unpaid statuses, resulting in missed cash collection at delivery.
+
+---
+
+### 20. [BUG][200][live] Missing Payment Received Option for Cash on Delivery Orders
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/wkfd4D48/89-bug200live-missing-payment-received-option-for-cash-on-delivery-orders)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Payments & Cash on Delivery` (COD Payment Reconciliation)
+* **Problem Summary:** For orders placed under Cash on Delivery (COD), the admin order drawer lacks an explicit "Mark Payment Received" action. Admins are forced to modify the general order status or edit invoice states indirectly.
+* **Expected Result:** A dedicated "Confirm COD Collection" button should be available in the order action panel to record the received cash amount, collector identity, and timestamp.
+* **Actual Result:** Admins have no clean mechanism to reconcile cash collected by riders.
+
+---
+
+### 21. [BUG][200][live] Package Sales Amount Is Not Included in Total Sales
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/vBvxyZjg/90-bug200live-package-sales-amount-is-not-included-in-total-sales)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Reporting & Financial Analytics` (Package Revenue Aggregation)
+* **Problem Summary:** The administrative financial dashboard aggregates revenue exclusively from standard garment orders. Package/subscription sales amounts are omitted from the "Total Sales" KPI cards and executive reports.
+* **Expected Result:** Total Sales calculations must incorporate all revenue streams, including direct garment washing, iron services, and package subscription plans.
+* **Actual Result:** Financial overview cards show skewed, lower-than-actual revenue figures.
+
+---
+
+### 22. [BUG][200][live] Ghost Click and Focus State Retention After Logout or Form Submission
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/cw5L9hgj/47-bug200live-ghost-click-and-focus-state-retention-after-logout-or-form-submission)
+* **Classification:** `BUG` | **Severity:** `Low` | **Module:** `Storefront / Interaction State` (DOM Focus & Event Cleanup)
+* **Problem Summary:** Submitting authentication forms or clicking logout leaves lingering focus rings and synthetic hover states on mobile touchscreens and desktop browsers, causing secondary inadvertent clicks.
+* **Expected Result:** Active button focus and touch ripple states should be programmatically blurred and cleared upon form submission or route transitions.
+* **Actual Result:** Buttons retain visual focus rings and trigger ghost click events.
+
+---
+
+### 23. [BUG][200][live] Incorrect Validation Message for Passwords Exceeding Maximum Length
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/oYpACpSK/48-bug200live-incorrect-validation-message-for-passwords-exceeding-maximum-length)
+* **Classification:** `BUG` | **Severity:** `Low` | **Module:** `Authentication / Validation` (Error Message Accuracy)
+* **Problem Summary:** When a user enters a password that exceeds the allowable length limit (e.g. > 64 chars), the client-side validation displays a generic "Password is invalid" or "Minimum 8 characters required" message instead of specifying the maximum character restriction.
+* **Expected Result:** The validation error should clearly state: "Password cannot exceed 64 characters."
+* **Actual Result:** Misleading validation copy confuses users attempting to set strong passwords.
+
+---
+
+### 24. [BUG][200][live] Broken Offline Indicator Image on the "You're Offline" Page
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/r7xqQCR8/50-bug200live-broken-offline-indicator-image-on-the-youre-offline-page)
+* **Classification:** `BUG` | **Severity:** `Low` | **Module:** `Storefront / Network Resilience` (Offline State Asset 404)
+* **Problem Summary:** When network connectivity drops and the service worker displays the offline fallback screen, the illustration graphic asset fails to load (returning 404 or missing local cache), displaying a broken image placeholder icon.
+* **Expected Result:** The offline graphic asset should be precached by the service worker during PWA install, rendering cleanly offline.
+* **Actual Result:** A broken image icon appears above the offline banner text.
+
+---
+
+### 25. [BUG][200][live] Incorrect Error State and Missing Login Redirection After Logout
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/ZiYk5hle/51-bug200live-incorrect-error-state-and-missing-login-redirection-after-logout)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Authentication / Session Lifecycle` (Logout Error Handlers & Redirect)
+* **Problem Summary:** Clicking logout clears session tokens but fails to handle post-logout routing cleanly. The UI displays an unhandled error toast ("Failed to fetch user state") and remains stranded on the protected URL rather than redirecting to /login.
+* **Expected Result:** Logout should gracefully clear local state, prevent downstream user-fetch errors, and immediately redirect to /login or home.
+* **Actual Result:** A red error toast appears and the page remains stuck on an unauthenticated route.
+
+---
+
+### 26. [BUG][200][live] Login Button Missing After Logout in Mobile Browser Until Page Refresh
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/g8f5O4LR/49-bug200live-login-button-missing-after-logout-in-mobile-browser-until-page-refresh)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Storefront / Responsive Navigation` (Mobile Header Re-render on Logout)
+* **Problem Summary:** On mobile viewports, logging out from the navigation drawer closes the drawer, but the top navbar fails to trigger a re-render. The user avatar disappears, yet the "Login" button does not show up until the user manually triggers a hard page refresh.
+* **Expected Result:** The mobile header authentication CTA should reactively toggle between Avatar and Login button based on active auth state.
+* **Actual Result:** The header retains an empty void where the action button belongs until manual refresh.
+
+---
+
+### 27. [BUG][200][live] Long Unbroken Customer Address Overflows Pickup Card and Breaks Page Layout
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/ulXqrflL/71-bug200live-long-unbroken-customer-address-overflows-pickup-card-and-breaks-page-layout)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Pickup & Delivery Scheduling` (Address Text Wrapping & Overflow)
+* **Problem Summary:** When a customer enters an extensive delivery address without manual line breaks, the address string overflows the pickup schedule summary card in checkout, pushing dates and times outside the viewport.
+* **Expected Result:** Address containers must enforce `word-break: break-word` and container containment to accommodate long Bangladeshi urban address descriptions.
+* **Actual Result:** Text flows horizontally past parent boundaries, destroying card geometry.
+
+---
+
+### 28. [BUG][200][live] Add Placeholder Text to Floor Input Field
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/jiqh3my0/72-bug200live-add-placeholder-text-to-floor-input-field)
+* **Classification:** `BUG` | **Severity:** `Low` | **Module:** `Pickup & Delivery Form` (Input Placeholders & Affordance)
+* **Problem Summary:** The building floor input in the delivery address modal lacks placeholder text (e.g., "e.g. 4th Floor, Flat 4B"), leading to ambiguous entries where customers type apartment names or leave it blank.
+* **Expected Result:** Provide clear, localized placeholder cues ("e.g., 3rd Floor / Flat 3A") to streamline delivery dispatch.
+* **Actual Result:** Field displays an empty blank box without contextual guidance.
+
+---
+
+### 29. [BUG][200][live] Garment Table Layout Breaks Due to Long Text and Incorrect Price Alignment
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/9gbgbTW6/69-bug200live-garment-table-layout-breaks-due-to-long-text-and-incorrect-price-alignment)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Admin Garments Management` (Table Responsive Columns & Alignment)
+* **Problem Summary:** In the admin Garments management catalog (/garments), item titles with detailed descriptions distort table column widths. Prices become misaligned with column headers, and action buttons wrap onto awkward double lines.
+* **Expected Result:** Table headers and numeric currency columns should maintain fixed alignments with truncation tooltips for extended titles.
+* **Actual Result:** Columns shift unpredictably, causing visual misalignment between header labels and price cells.
+
+---
+
+### 30. [IMP][200][live] Redirect Users to Home Page After Successful Login or Signup
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/0vToWQzy/68-imp200live-redirect-users-to-home-page-after-successful-login-or-signup)
+* **Classification:** `IMP` | **Severity:** `Low` | **Module:** `Authentication / Navigation Flow` (Post-Login Landing UX)
+* **Problem Summary:** After successful registration or login, customers are redirected to an arbitrary account dashboard rather than being returned to their previous intent (such as the cart or the home page to start shopping).
+* **Expected Result:** Support `redirect_to` query params to return users to their previous workflow, defaulting to the Homepage if no specific route was active.
+* **Actual Result:** Users are dropped on a generic account page and must manually navigate back to shopping.
+
+---
+
+### 31. [IMP][200][live] Add Customer Creation and Manual Package Assignment Options in Admin Panel
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/tMrtAIwa/67-imp200live-add-customer-creation-and-manual-package-assignment-options-in-admin-panel)
+* **Classification:** `IMP` | **Severity:** `High` | **Module:** `Customer Management & Subscriptions` (Manual Package Assignment)
+* **Problem Summary:** Admins cannot manually onboard customers or assign laundry subscription packages over phone/offline desk requests. All package subscriptions currently require customer self-service through the storefront.
+* **Expected Result:** Admin panel should provide a "+ New Customer" creation dialog and a "Grant/Assign Package" drawer in customer details.
+* **Actual Result:** Admins have no interface to manually enroll corporate or walk-in package subscribers.
+
+---
+
+### 32. [BUG][200][live] Long Short Description Text Overflows Its Container in Package Details
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/kWZ0cyjC/66-bug200live-long-short-description-text-overflows-its-container-in-package-details)
+* **Classification:** `BUG` | **Severity:** `Low` | **Module:** `Storefront / Package Details` (Text Container Overflow)
+* **Problem Summary:** On package overview cards, when marketing adds an extended summary into the "Short Description" field, the text spills outside the fixed-height card container and overlaps the subscription CTA button.
+* **Expected Result:** Card descriptions should utilize dynamic height or clamp to 3 lines (`-webkit-line-clamp: 3`) with a "Read more" toggle.
+* **Actual Result:** Text bleeds over the package pricing and "Subscribe" button.
+
+---
+
+### 33. [BUG][200][live] Unknown Endpoint Error Occurs When Submitting Booking or Package Requests
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/DuqVNKmz/65-bug200live-unknown-endpoint-error-occurs-when-submitting-booking-or-package-requests)
+* **Classification:** `BUG` | **Severity:** `Critical` | **Module:** `Booking & API Routing` (BFF Route Handler 404/Unknown)
+* **Problem Summary:** When customers complete a custom booking or package inquiry on the storefront and hit submit, the frontend POSTs to a deprecated or mismatched BFF API route, resulting in an unhandled 404 / 500 "Unknown Endpoint" error banner.
+* **Expected Result:** The booking submission handler should target the active REST endpoint (`/api/bff/customer/bookings`) with complete payload validation.
+* **Actual Result:** Customers receive an error popup and their booking request is dropped.
+
+---
+
+### 34. [IMP][200][live] Add Direct Package Booking and Checkout Instead of WhatsApp Redirection
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/NMKFmfCj/63-imp200live-add-direct-package-booking-and-checkout-instead-of-whatsapp-redirection)
+* **Classification:** `IMP` | **Severity:** `High` | **Module:** `Storefront / Checkout Funnel` (Direct In-App Checkout UX)
+* **Problem Summary:** Subscribing to a laundry package currently redirects users away from the web app to a WhatsApp chat link. This fragments the conversion funnel and prevents automated order tracking in the admin panel.
+* **Expected Result:** Integrate native in-app package selection, address confirmation, and checkout gateway directly inside LaundryBD.
+* **Actual Result:** Users are bounced out to external WhatsApp chats, causing significant conversion drop-off.
+
+---
+
+### 35. [BUG][200][live] Package/Bundle Management Option Missing from Admin Panel
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/lNsGiMDG/64-bug200live-package-bundle-management-option-missing-from-admin-panel)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Admin Catalog & Packages` (Package CRUD in Admin Dashboard)
+* **Problem Summary:** The administrative sidebar and catalog section contain menus for Garments and Categories, but have no module or CRUD interface to manage subscription packages, bundle prices, or quota limits.
+* **Expected Result:** An admin section for Packages (/packages) allowing administrators to create, price, feature, and modify package offerings.
+* **Actual Result:** Admins cannot edit or create packages without direct database intervention.
+
+---
+
+### 36. [IMP][200][live] Add Bengali Language Support to Service Area Checker
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/l2OBgam3/45-imp200live-add-bengali-language-support-to-service-area-checker)
+* **Classification:** `IMP` | **Severity:** `Low` | **Module:** `Storefront / Localization` (Bangla Unicode Search Matcher)
+* **Problem Summary:** The service area availability checker on the landing page only accepts English queries ("Zindabazar"). Typing in Bengali ("জিন্দাবাজার") produces zero search results despite serving the local Sylheti audience.
+* **Expected Result:** Support bilingual phonetic search or map Bengali transliterations to each of the 30 recognized service areas.
+* **Actual Result:** Bangla queries fail to match, giving visitors the false impression that their area is unsupported.
+
+---
+
+### 37. [BUG][200][live] Super Admin Cannot Recover Forgotten Password Without Another
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/oPRRlUeP/57-bug200live-super-admin-cannot-recover-forgotten-password-without-another)
+* **Classification:** `BUG` | **Severity:** `Critical` | **Module:** `Authentication / Recovery` (Super Admin Self-Recovery Fallback)
+* **Problem Summary:** If the primary Super Admin forgets their password, the admin portal lacks an automated OTP/Email self-recovery channel for administrative roles. Password resets currently require another Super Admin to modify it from /users.
+* **Expected Result:** Provide a secure root recovery mechanism using verified administrative email/SMS OTP with emergency token validation.
+* **Actual Result:** Sole Super Admin lockouts require direct database emergency intervention.
+
+---
+
+### 38. [BUG][200][live] Unblock IP Action Fails Due to Null Reference Error
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/lFSO8AH2/61-bug200live-unblock-ip-action-fails-due-to-null-reference-error)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Security & IP Management` (Unblock Null Pointer / Exception)
+* **Problem Summary:** When clicking the "Unblock" button on an active blocked IP row where metadata fields (such as `expires_at` or `created_by`) are null, the frontend client throws an unhandled `TypeError: Cannot read properties of null` exception.
+* **Expected Result:** The unblock action dialog and handler should safely handle null dates and missing actor IDs.
+* **Actual Result:** The confirmation dialog crashes and the unblock API request is never dispatched.
+
+---
+
+### 39. [IMP][200][live] Add Block/Unblock Customer Option to Customer Details Drawer
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/hbiWGuJT/60-imp200live-add-block-unblock-customer-option-to-customer-details-drawer)
+* **Classification:** `IMP` | **Severity:** `Medium` | **Module:** `Customer Drawer & Moderation` (Direct Customer Block Action)
+* **Problem Summary:** When investigating customer abuse from the Customer Details drawer (/customers), administrators have to navigate to separate moderation views or users list to toggle blocked status.
+* **Expected Result:** Provide a direct "Block Customer" / "Unblock Customer" action button inside the customer overview drawer with reason prompts.
+* **Actual Result:** Admins must leave the customer inspection drawer to execute account restrictions.
+
+---
+
+### 40. [BUG][200][live] Blocked Customers Tab Displays Active Customers Instead of Blocked Customers
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/F5OM5oK2/59-bug200live-blocked-customers-tab-displays-active-customers-instead-of-blocked-customers)
+* **Classification:** `BUG` | **Severity:** `High` | **Module:** `Customer Moderation & Filtering` (Filter State Inversion in Admin Table)
+* **Problem Summary:** In the Customers management page (/customers), clicking the "Blocked" filter tab inverts query parameters or passes `is_blocked=false`, rendering active customers while hiding actual blocked accounts.
+* **Expected Result:** Clicking the "Blocked" tab should strictly filter and display customers with `is_blocked = true`.
+* **Actual Result:** The table displays active accounts, completely defeating the purpose of the moderation tab.
+
+---
+
+### 41. [BUG][200][live] Time Slots Are Displayed in Incorrect Order
+
+* **Trello Link:** [Open Card on Trello](https://trello.com/c/MruFXmN3/58-bug200live-time-slots-are-displayed-in-incorrect-order)
+* **Classification:** `BUG` | **Severity:** `Medium` | **Module:** `Pickup & Delivery Scheduling` (Chronological Slot Sorting)
+* **Problem Summary:** During pickup and delivery time selection in checkout, slot options appear in arbitrary alphabetical order (e.g. "02:00 PM", "08:00 AM", "11:00 AM", "05:00 PM") instead of chronological sequence.
+* **Expected Result:** Time slot options should be sorted chronologically by start timestamp (e.g. 08:00 AM → 11:00 AM → 02:00 PM → 05:00 PM).
+* **Actual Result:** Alphabetical sorting scrambles morning and evening slots, confusing customers during booking.
+
+---
+
+## 🛠️ Testing Methodology & Verification Protocol
+
+The quality assurance execution for these 41 items incorporated full-stack manual and automated verification:
+
+1. **Automated Headless Browser Validation:** Puppeteer & Google Chrome DevTools protocol used to test responsive viewports (360px, 390px, 768px, 1280px, 1920px), network payload intercept, and DOM layout integrity.
+2. **REST API & BFF Endpoint Auditing:** Direct validation of HTTP status codes, schema validation, CSRF protections, and session cookies across Admin and Storefront endpoints.
+3. **Role-Based Access Control (RBAC) Matrices:** Cross-role permission verification across 5 distinct system roles (`SUPER_ADMIN`, `ADMIN`, `MANAGER`, `STAFF`, `CUSTOMER`).
+4. **Data Synchronization & Cash Flow Auditing:** End-to-end verification of customer bookings, package redemptions, staff payroll vouchers, and revenue dashboards.
+
+---
+
+## 👨‍💻 Project Quality Assurance Sign-off
+
+* **Lead QA Engineer:** Sojib Ahmed ([@sojibahmed007](https://github.com/sojibahmed007))
+* **Project Board:** [Kerno Studio – LaundryBD](https://trello.com/b/zpnZp2pZ/kernostudio)
+* **Status:** Complete & Logged in Done
